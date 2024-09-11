@@ -1,5 +1,7 @@
-from datetime import datetime, time
 import streamlit as st
+from contract import Sells
+from datetime import datetime, time
+from pydantic import ValidationError
 
 def main():
   st.title("Sistema de CRM e Vendas - Front-end")
@@ -13,14 +15,22 @@ def main():
 
   if st.button("Salvar"):
 
-    date_time = datetime.combine(date, hour)
-    st.write("**Dados da Venda:**")
-    st.write("E-mail do vendedor:", email)
-    st.write("Horário da venda realizada:", date_time)
-    st.write("Valor da venda: R$", value)
-    st.write("Quantidade de produtos vendidos:", quantity)
-    st.write("Produto vendido:", product)
-    st.success("Cadastrado com sucesso!")
+    try:
+      date_time = datetime.combine(date, hour)
+
+      sell = Sells(email=email, date_time=date_time, value=value, quantity=quantity, product=product)
+
+      # st.write("**Dados da Venda:**")
+      # st.write("E-mail do vendedor:", email)
+      # st.write("Horário da venda realizada:", date_time)
+      # st.write("Valor da venda: R$", value)
+      # st.write("Quantidade de produtos vendidos:", quantity)
+      # st.write("Produto vendido:", product)
+      # st.success("Cadastrado com sucesso!")
+
+      st.write(sell)
+    except ValidationError as e:
+      st.error(e.errors())
 
 if __name__ == "__main__":
   main()

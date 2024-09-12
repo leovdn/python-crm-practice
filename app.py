@@ -2,6 +2,7 @@ import streamlit as st
 from contract import Sells
 from datetime import datetime, time
 from pydantic import ValidationError
+from database import save_on_postgres
 
 def main():
   st.title("Sistema de CRM e Vendas - Front-end")
@@ -29,6 +30,7 @@ def main():
       # st.success("Cadastrado com sucesso!")
 
       st.write(sell)
+      save_on_postgres(sell)
     except ValidationError as e:
       st.error(e.errors())
 

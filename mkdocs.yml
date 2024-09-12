@@ -1,0 +1,9 @@
+site_name: Python CRM & Sales Practice Project
+
+theme:
+  name: 'material'
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python

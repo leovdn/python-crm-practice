@@ -18,7 +18,15 @@ DB_PASS = os.getenv("DB_PASS")
 def save_on_postgres(data: Sells):
     """
     Função para salvar no postgres
+
+    Args:
+      email (EmailStr): E-mail do vendedor
+      date_time (datetime): Data da venda realizada
+      value (PositiveFloat): Valor da venda
+      quantity (PositiveInt): Quantidade de produtos vendidos
+      product (str): Produto vendido
     """
+
     try:
         conn = psycopg2.connect(
             host=DB_HOST,
